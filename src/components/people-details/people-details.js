@@ -5,7 +5,7 @@ export default class PeopleDetails extends Component{
         return(
             <div className="random-planet jumbotron rounded">
             <img className="person-image"
-                 src="https://starwars-visualguide.com/assets/img/characters/3.jpg" />
+                 src="https://starwars-visualguide.com/assets/img/characters/3.jpg"  alt = ''/>
             <div>
               <h4>R2 </h4>
               <ul className="list-group list-group-flush">
