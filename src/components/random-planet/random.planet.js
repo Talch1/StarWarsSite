@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import './random-planet.css'
 import SwapiService from '../../services/swapi-service'
 import Spinner from '../spiner/spiner';
+import ErrorIcon from '../error'
 
 export default class RandomPlanet extends Component {
   state = {
     planet: {},
-    loading: true
+    loading: true,
+    error: false
   }
   constructor() {
     super();
@@ -19,21 +21,33 @@ export default class RandomPlanet extends Component {
       planet,
       loading: false
     });
-
   }
+
+  onError = (err) => {
+    this.setState({
+      error: true,
+      loading: false
+    })
+  }
+
   updatePlanete() {
     const id = Math.floor((Math.random() * 25) + 2);
     this.swapi.getPlanet(id)
-      .then(this.onPlanetLosdet);
+      .then(this.onPlanetLosdet).catch(this.onError);
 
   }
   render() {
-    const { planet, loading } = this.state;
+
+    const { planet, loading, error } = this.state;
+    const hasData = !(loading || error);
+
+    const errTrue = error ? <ErrorIcon /> : null
     const spinner = loading ? <Spinner /> : null;
-    const content = !loading ? <AfterLoading planet={planet} /> : null
+    const content = hasData ? <AfterLoading planet={planet} /> : null
 
     return (
       <div className="random-planet jumbotron rounded">
+        {errTrue}
         {spinner}
         {content}
       </div>
@@ -47,7 +61,7 @@ const AfterLoading = ({ planet }) => {
     <React.Fragment>
       <img className="planet-image"
         src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`} alt="" />
-      <div>
+      <div spin>
         <h4>{name}</h4>
         <ul className="list-group list-group-flush">
           <li className="list-group-item">

@@ -1,0 +1,14 @@
+.errIndicator{flex-direction: column;
+    display: flex;
+    
+}
+.goldWorlds{
+    color: gold;
+    font-size: large;
+    
+   
+}
+.errorIcon{ 
+    align-self: center;
+    
+}
