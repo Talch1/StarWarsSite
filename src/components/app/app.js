@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import Header from "../header";
-import RandomPlanet from "../random-planet";
+/* import RandomPlanet from "../random-planet"; */
 import ItemList from "../item-list/";
-import StarshipDetails from "../starship-details/starship-details";
+/* import StarshipDetails from "../starship-details/starship-details"; */
 import "./app.css";
 import SwapiService from "../../services/swapi-service";
-import PlanetDetails from "../planets-details/planet-details";
+/* import PlanetDetails from "../planets-details/planet-details"; */
 import ItemDetails from "../item-details";
+import Row from "../row";
 
 export default class App extends Component {
   swapiService = new SwapiService();
@@ -40,27 +41,34 @@ export default class App extends Component {
         renderItem={({ name, gender, birthYear }) =>
           `${name} (${gender} ,${birthYear})`
         }
-
       />
     );
+
+    const ship = (
+      <ItemDetails itemId={5} getData={this.swapiService.getPerson} />
+    );
+    const person =(
+      <ItemDetails itemId={3} getData={this.swapiService.getPerson} />
+
+    )
     return (
       <div className="container">
         <Header />
-        {this.state.seePlanet ? <RandomPlanet /> : null}
+        {/*   {this.state.seePlanet ? <RandomPlanet /> : null}
         <div className="row d-flex justify-content-center ">
           <button className="btn btn-primary " onClick={this.togglePlanet}>
             Toggle Rundom Planet
-          </button>
-        </div>
-        <div className="row">
+          </button> 
+       </div> 
+         <div className="row">
           <div className="col-5">{itemList}</div>
-          <div className="col-7 mt-4">
+          <div className="col-7 mt-4"> 
             <ItemDetails itemId={this.state.selectedPerson} 
              getData={this.swapiService.getPerson}
             />
           </div>
-        </div>
-        <div className="row">
+        </div> 
+         <div className="row">
           <div className="col-5">
             <ItemList
               onItemSelected={this.personOpen}
@@ -83,7 +91,10 @@ export default class App extends Component {
           <div className="col-7 mt-4">
             <PlanetDetails  personId={this.state.selectedStarship} />
           </div>
-        </div>
+    </div>*/}
+
+      
+        <Row left={person} right={ship} />
       </div>
     );
   }
