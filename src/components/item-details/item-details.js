@@ -1,37 +1,37 @@
 import React, { Component } from "react";
-import "./people-details.css";
+import "./item-details.css";
 import SwapiService from "../../services/swapi-service";
-export default class PeopleDetails extends Component {
+export default class ItemDetails extends Component {
   state = {
-    person: null,
+    item: null,
+    itemId :5
   };
 
   swapiService = new SwapiService();
-
   componentDidMount() {
-    this.updatePersone();
+    this.updateItem();
   }
   componentDidUpdate(prevProps){
-if (this.props.personId !== prevProps.personId){
-this.updatePersone();
+if (this.props.itemId !== prevProps.itemId){
+this.updateItem();
 
 }
   }
-  updatePersone() {
-    const { personId } = this.props;
-    if (!personId) {
+  updateItem() {
+    const { itemId } = this.props;
+    if (!itemId) {
       return;
     }
 
-    this.swapiService.getPerson(personId).then((person) => {
-      this.setState({ person });
+    this.props.getData(itemId).then((item) => {
+      this.setState({ item });
     });
   }
   render() {
-    if (!this.state.person) {
-      return <span>Select person from List</span>;
+    if (!this.state.item) {
+      return <span>Select item from List</span>;
     }
-    const { id, name, gender, birth_year, eye_color } = this.state.person;
+    const { id, name, gender, birth_year, eye_color } = this.state.item;
     return (
     
       <div className="random-planet jumbotron rounded">

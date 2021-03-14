@@ -2,11 +2,11 @@ import React, { Component } from "react";
 import Header from "../header";
 import RandomPlanet from "../random-planet";
 import ItemList from "../item-list/";
-import PeopleDetails from "../people-details";
 import StarshipDetails from "../starship-details/starship-details";
 import "./app.css";
 import SwapiService from "../../services/swapi-service";
 import PlanetDetails from "../planets-details/planet-details";
+import ItemDetails from "../item-details";
 
 export default class App extends Component {
   swapiService = new SwapiService();
@@ -40,6 +40,7 @@ export default class App extends Component {
         renderItem={({ name, gender, birthYear }) =>
           `${name} (${gender} ,${birthYear})`
         }
+
       />
     );
     return (
@@ -54,7 +55,9 @@ export default class App extends Component {
         <div className="row">
           <div className="col-5">{itemList}</div>
           <div className="col-7 mt-4">
-            <PeopleDetails personId={this.state.selectedPerson} />
+            <ItemDetails itemId={this.state.selectedPerson} 
+             getData={this.swapiService.getPerson}
+            />
           </div>
         </div>
         <div className="row">
@@ -66,7 +69,7 @@ export default class App extends Component {
             />
           </div>
           <div className="col-7 mt-4">
-            <StarshipDetails /> personId={this.state.selectedStarship} />
+            <StarshipDetails  personId={this.state.selectedStarship} />
           </div>
         </div>
         <div className="row">
@@ -78,7 +81,7 @@ export default class App extends Component {
             />
           </div>
           <div className="col-7 mt-4">
-            <PlanetDetails /> personId={this.state.selectedStarship} />
+            <PlanetDetails  personId={this.state.selectedStarship} />
           </div>
         </div>
       </div>
