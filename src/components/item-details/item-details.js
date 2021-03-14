@@ -4,42 +4,38 @@ import SwapiService from "../../services/swapi-service";
 export default class ItemDetails extends Component {
   state = {
     item: null,
-    itemId :5
+    image: null,
   };
 
   swapiService = new SwapiService();
   componentDidMount() {
     this.updateItem();
   }
-  componentDidUpdate(prevProps){
-if (this.props.itemId !== prevProps.itemId){
-this.updateItem();
-
-}
+  componentDidUpdate(prevProps) {
+    if (this.props.itemId !== prevProps.itemId) {
+      this.updateItem();
+    }
   }
   updateItem() {
-    const { itemId } = this.props;
+    const { itemId, getData, getImageUrl } = this.props;
     if (!itemId) {
       return;
     }
 
-    this.props.getData(itemId).then((item) => {
-      this.setState({ item });
+    getData(itemId).then((item) => {
+      this.setState({ item, image: getImageUrl(item.id) });
     });
   }
+
   render() {
+    const {image} = this.state;
     if (!this.state.item) {
       return <span>Select item from List</span>;
     }
-    const { id, name, gender, birth_year, eye_color } = this.state.item;
+    const { name, gender, birth_year, eye_color, } = this.state.item;
     return (
-    
       <div className="random-planet jumbotron rounded">
-        <img
-          className="person-image"
-          src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`}
-          alt=""
-        />
+        <img className="person-image" src={image} alt="" />
         <div>
           <h4>{name} </h4>
           <ul className="list-group list-group-flush">

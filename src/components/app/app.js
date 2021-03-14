@@ -44,13 +44,14 @@ export default class App extends Component {
       />
     );
 
+    const { getPerson, getStarship ,getPersonImage,getStarShipImage} = this.swapiService;
     const ship = (
-      <ItemDetails itemId={5} getData={this.swapiService.getPerson} />
+      <ItemDetails itemId={13} getData={getStarship} getImageUrl={getStarShipImage} />
     );
-    const person =(
-      <ItemDetails itemId={3} getData={this.swapiService.getPerson} />
+    const person = (
+      <ItemDetails itemId={5} getData={getPerson} getImageUrl={getPersonImage} />
+    );
 
-    )
     return (
       <div className="container">
         <Header />
@@ -93,7 +94,6 @@ export default class App extends Component {
           </div>
     </div>*/}
 
-      
         <Row left={person} right={ship} />
       </div>
     );
